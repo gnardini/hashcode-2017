@@ -1,16 +1,23 @@
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RidesValidator {
 
-	public static boolean isValidSolution(RidesProblemInput input, RidesProblemOutput output) {
-		return true;
+	public static void validateSolution(RidesProblemInput input, RidesProblemOutput output) {
+		List<Integer> rideNumbers = output.rides.stream().flatMap(List::stream).distinct().collect(Collectors.toList());
+		int distinctRides = rideNumbers.size();
+		int totalRides = output.rides.stream().map(list -> list.size()).reduce(0, (a, b) -> a + b);
+		if (distinctRides != totalRides) {
+			throw new IllegalArgumentException("repeated rides across vehicles");
+		}
+
+		if (!rideNumbers.stream().allMatch(x -> x >= 0 && x < input.ridesCount)) {
+			throw new IllegalArgumentException("invalid ride numbers");
+		}
 	}
 
 	public static int score(RidesProblemInput input, RidesProblemOutput output) {
-		if (!isValidSolution(input, output)) {
-			throw new IllegalArgumentException("invalid solution");
-		}
-
+		validateSolution(input, output);
 		return output.rides.stream().map(rides -> score(input, rides)).reduce(0, (a, b) -> a + b);
 	}
 
