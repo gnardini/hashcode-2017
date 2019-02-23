@@ -9,9 +9,9 @@ public class Problem {
     static List<String> files = Arrays.asList("a_example", "b_should_be_easy", "c_no_hurry", "d_metropolis", "e_high_bonus");
 
     public static void main(String[] args) throws IOException {
-        RidesProblem problem = new SortingSolution();
+        RidesProblem problem = new GreedySolution();
         runAll(problem);
-//        RidesProblemInput input = read("./inputs/b_should_be_easy.in");
+//        RidesProblemInput input = read("./inputs/e_high_bonus.in");
 //        RidesProblemOutput out = problem.solve(input);
 //        write(out);
 //        RidesValidator.validateSolution(input, out);
@@ -31,7 +31,7 @@ public class Problem {
             RidesProblemOutput out = problem.solve(input);
             RidesValidator.validateSolution(input, out);
             int partialScore = RidesValidator.score(input, out);
-            System.out.println("File " + file + " score " + score);
+            System.out.println("File " + file + " score " + partialScore);
             score += partialScore;
         }
         System.out.println(score);
