@@ -1,20 +1,20 @@
 import java.util.List;
 
 public class RidesProblemInput {
-	public int R;
-	public int C;
-	public int F;
-	public int N;
-	public int B;
-	public int T;
+	public int rows;
+	public int cols;
+	public int vehicleCount;
+	public int ridesCount;
+	public int bonus;
+	public int steps;
 	public List<Ride> rides;
 
-	public RidesProblemInput(int r, int c, int f, int n, int b, int t, List<Ride> rides) {
-		R = r;
-		C = c;
-		F = f;
-		N = n;
-		B = b;
-		T = t;
+	public RidesProblemInput(int rows, int cols, int vehicleCount, int ridesCount, int bonus, int steps, List<Ride> rides) {
+		this.rows = rows;
+		this.cols = cols;
+		this.vehicleCount = vehicleCount;
+		this.ridesCount = ridesCount;
+		this.bonus = bonus;
+		this.steps = steps;
 	}
 }

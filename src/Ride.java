@@ -1,17 +1,17 @@
 public class Ride {
-	public int a;
-	public int b;
-	public int x;
-	public int y;
-	public int s;
-	public int f;
+	public int startRow;
+	public int startCol;
+	public int endRow;
+	public int endCol;
+	public int startStep;
+	public int finalStep;
 
-	public Ride(int a, int b, int x, int y, int s, int f) {
-		this.a = a;
-		this.b = b;
-		this.x = x;
-		this.y = y;
-		this.s = s;
-		this.f = f;
+	public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep) {
+		this.startRow = startRow;
+		this.startCol = startCol;
+		this.endRow = endRow;
+		this.endCol = endCol;
+		this.startStep = startStep;
+		this.finalStep = finalStep;
 	}
 }
