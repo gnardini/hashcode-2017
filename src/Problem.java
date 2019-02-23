@@ -18,14 +18,21 @@ public class Problem {
 //        System.out.println(RidesValidator.score(input, out));
     }
 
+//    a_example 10
+//    b_should_be_easy 176877
+//    c_no_hurry 15329730
+//    d_metropolis 9917897
+//    e_high_bonus 21465945
+//    47054084
     public static void runAll(RidesProblem problem) throws IOException {
         int score = 0;
         for (String file : files) {
             RidesProblemInput input = read("./inputs/" + file + ".in");
             RidesProblemOutput out = problem.solve(input);
             RidesValidator.validateSolution(input, out);
-            score += RidesValidator.score(input, out);
+            int partialScore = RidesValidator.score(input, out);
             System.out.println("File " + file + " score " + score);
+            score += partialScore;
         }
         System.out.println(score);
     }
