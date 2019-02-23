@@ -3,15 +3,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Problem {
 
     static List<String> files = Arrays.asList("a_example", "b_should_be_easy", "c_no_hurry", "d_metropolis", "e_high_bonus");
 
     public static void main(String[] args) throws IOException {
-        RidesProblem problem = new SolutionSorting();
+        RidesProblem problem = new SortingSolution();
         runAll(problem);
 //        RidesProblemInput input = read("./inputs/b_should_be_easy.in");
 //        RidesProblemOutput out = problem.solve(input);
