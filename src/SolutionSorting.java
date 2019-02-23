@@ -8,9 +8,10 @@ public class SolutionSorting implements RidesProblem {
 
     @Override
     public RidesProblemOutput solve(RidesProblemInput input) {
-        List<List<Integer>> result = IntStream.range(0, input.vehicleCount)
-                .mapToObj(i -> new ArrayList())
-                .collect(Collectors.toList());
+        List<List<Integer>> result = new ArrayList<>(input.vehicleCount);
+        for (int i = 0; i < input.vehicleCount; i++) {
+            result.add(i, new ArrayList<>());
+        }
 
         List<Car> cars = IntStream.range(0, input.vehicleCount)
                 .mapToObj(i -> new Car(0, 0, 0, i))
@@ -25,9 +26,18 @@ public class SolutionSorting implements RidesProblem {
             Ride ride = input.rides.get(currentRide);
             Car car = getAvailableCar(time, cars, ride);
             if (car != null) {
-                result.get(car.i).add(ride.id);
+                result.get(car.id).add(ride.index);
+                car.t += distance(car.i, car.j, ride.startRow, ride.startCol);
+                if (car.t < ride.startStep) {
+                    car.t = ride.startStep;
+                }
+                car.t += distance(ride.startRow, ride.startCol, ride.endRow, ride.endCol);
+                car.i = ride.endRow;
+                car.j = ride.endCol;
+                currentRide++;
+            } else {
+                time = cars.stream().mapToInt(car1 -> car1.t).min().orElseThrow(RuntimeException::new);
             }
-            time = cars.stream().mapToInt(car1 -> car1.t).min().orElseThrow(RuntimeException::new);
         }
         return new RidesProblemOutput(result);
     }

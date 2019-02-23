@@ -5,8 +5,6 @@ public class Ride {
     public int endCol;
     public int startStep;
     public int finalStep;
-    public int id;
-
 	public int index;
 	public boolean used;
 
@@ -17,13 +15,12 @@ public class Ride {
         this.endCol = endCol;
         this.startStep = startStep;
         this.finalStep = finalStep;
-        this.id = id;
         this.index = index;
     }
 
     @Override
     public String toString() {
         return String.format("ride with id %d from [%d, %d] to [%d, %d], earliest start %d, latest finish %d\n",
-                id, startRow, startCol, endRow, endCol, startStep, finalStep);
+                index, startRow, startCol, endRow, endCol, startStep, finalStep);
     }
 }
