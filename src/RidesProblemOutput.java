@@ -6,4 +6,11 @@ public class RidesProblemOutput {
 	public RidesProblemOutput(List<List<Integer>> rides) {
 		this.rides = rides;
 	}
+
+	@Override
+	public String toString() {
+		return "RidesProblemOutput{" +
+				"rides=" + rides +
+				'}';
+	}
 }

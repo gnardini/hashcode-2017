@@ -7,11 +7,10 @@ public class Ride {
     public int finalStep;
     public int id;
 
-    public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep) {
-        this(startRow, startCol, endRow, endCol, startStep, finalStep, 0);
-    }
+	public int index;
+	public boolean used;
 
-    public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep, int id) {
+    public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep, int index) {
         this.startRow = startRow;
         this.startCol = startCol;
         this.endRow = endRow;
@@ -19,11 +18,12 @@ public class Ride {
         this.startStep = startStep;
         this.finalStep = finalStep;
         this.id = id;
+        this.index = index;
     }
 
     @Override
     public String toString() {
-        return String.format("ride from [%d, %d] to [%d, %d], earliest start %d, latest finish %d\n",
-                startRow, startCol, endRow, endCol, startStep, finalStep);
+        return String.format("ride with id %d from [%d, %d] to [%d, %d], earliest start %d, latest finish %d\n",
+                id, startRow, startCol, endRow, endCol, startStep, finalStep);
     }
 }
