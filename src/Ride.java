@@ -23,4 +23,14 @@ public class Ride {
         return String.format("ride with id %d from [%d, %d] to [%d, %d], earliest start %d, latest finish %d\n",
                 index, startRow, startCol, endRow, endCol, startStep, finalStep);
     }
+
+    @Override
+    public int hashCode() {
+        return index;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((Ride) obj).index == this.index;
+    }
 }

@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,36 +15,45 @@ public class SortingSolution implements RidesProblem {
                 .mapToObj(i -> new Car(0, 0, 0, i))
                 .collect(Collectors.toList());
 
-        input.rides.sort(Comparator.comparingInt(o -> o.startStep));
-
-        int time = 0;
-        int currentRide = 0;
-
-        while (time < input.steps && currentRide < input.rides.size()) {
-            Ride ride = input.rides.get(currentRide);
-            Car car = getAvailableCar(time, cars, ride);
-            if (car != null) {
-                result.get(car.id).add(ride.index);
-                car.t += distance(car.i, car.j, ride.startRow, ride.startCol);
-                if (car.t < ride.startStep) {
-                    car.t = ride.startStep;
+        Set<Ride> rides = new HashSet<>(input.rides);
+        Car maxCar = null;
+        Ride maxRide = null;
+        while (!rides.isEmpty()) {
+            int maxScore = Integer.MIN_VALUE;
+            for (Ride ride : rides) {
+                for (Car car : cars) {
+                    int score = score(car, ride, input.bonus);
+                    if (score > maxScore) {
+                        maxRide = ride;
+                        maxCar = car;
+                        maxScore = score;
+                    }
                 }
-                car.t += distance(ride.startRow, ride.startCol, ride.endRow, ride.endCol);
-                car.i = ride.endRow;
-                car.j = ride.endCol;
-                currentRide++;
-            } else {
-                time = cars.stream().mapToInt(car1 -> car1.t).min().orElseThrow(RuntimeException::new);
             }
+
+            result.get(maxCar.id).add(maxRide.index);
+            maxCar.t += distance(maxCar.i, maxCar.j, maxRide.startRow, maxRide.startCol);
+            if (maxCar.t < maxRide.startStep) {
+                maxCar.t = maxRide.startStep;
+            }
+            maxCar.t += distance(maxRide.startRow, maxRide.startCol, maxRide.endRow, maxRide.endCol);
+            maxCar.i = maxRide.endRow;
+            maxCar.j = maxRide.endCol;
+
+            rides.remove(maxRide);
         }
         return new RidesProblemOutput(result);
     }
 
-    private Car getAvailableCar(int time, List<Car> cars, Ride ride) {
-        return cars.stream()
-                .filter(car -> car.t <= time)
-                .min(Comparator.comparingInt(car2 -> distance(car2.i, car2.j, ride.startRow, ride.startCol)))
-                .orElse(null);
+    private int timeToRide(Car car, Ride ride) {
+        return distance(car.i, car.j, ride.startRow, ride.startCol) + Math.max(0, car.t - ride.startStep);
+    }
+
+    private int score(Car car, Ride ride, int bonus) {
+        int bonusScore = car.t + distance(car.i, car.j, ride.startRow, ride.startCol) <= ride.startStep ? bonus : 0;
+        int distanceScore = distance(ride.startRow, ride.startCol, ride.endRow, ride.endCol);
+        int timeToRide = timeToRide(car, ride);
+        return bonusScore * bonusScore + distanceScore - timeToRide;
     }
 
     public static int distance(int i1, int j1, int i2, int j2) {

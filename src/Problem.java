@@ -25,6 +25,7 @@ public class Problem {
             RidesProblemOutput out = problem.solve(input);
             RidesValidator.validateSolution(input, out);
             score += RidesValidator.score(input, out);
+            System.out.println("File " + file + " score " + score);
         }
         System.out.println(score);
     }
