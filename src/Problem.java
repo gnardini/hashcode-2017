@@ -8,12 +8,12 @@ import java.util.StringTokenizer;
 public class Problem {
 
     public static void main(String[] args) throws IOException {
-        System.out.println(read());
+//        System.out.println(read());
     }
 
 
-    private static RidesProblemInput read() throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("./inputs/a_example.in"))) {
+    public static RidesProblemInput read(String inputFile) throws IOException {
+        try (BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int rows = Integer.parseInt(st.nextToken());
             int cols = Integer.parseInt(st.nextToken());
