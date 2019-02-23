@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Problem {
 
@@ -26,7 +28,7 @@ public class Problem {
             for (int i = 0; i < ridesCount; i++) {
                 st = new StringTokenizer(br.readLine());
                 rides.add(new Ride(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),
-                        Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+                        Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), i));
             }
             return new RidesProblemInput(rows, cols, vehicleCount, ridesCount, bonus, steps, rides);
         }
