@@ -20,7 +20,7 @@ public class GreedySolution implements RidesProblem {
             int currentStep = nextStep;
             nextStep = Integer.MAX_VALUE;
             for (VehicleState vehicle : vehicles) {
-                if (vehicle.finalStep == nextStep) {
+                if (vehicle.finalStep == currentStep) {
                     findBestRide(input.rides, vehicle, currentStep, input.bonus);
                     nextStep = Math.min(nextStep, vehicle.finalStep);
                 }
@@ -33,7 +33,7 @@ public class GreedySolution implements RidesProblem {
     }
 
     private void findBestRide(List<Ride> rides, VehicleState vehicle, int step, int bonus) {
-        int bestScore = 0;
+        int bestScore = Integer.MIN_VALUE;
         Ride bestRide = null;
         int finalStep = -1;
         for (int i = 0; i < rides.size(); i++) {
@@ -42,17 +42,23 @@ public class GreedySolution implements RidesProblem {
                 continue;
             }
             int distanceOfRide = Math.abs(ride.endCol - ride.startCol) + Math.abs(ride.endRow - ride.startRow);
-            int distanceToRide = Math.abs(ride.endCol - vehicle.col) + Math.abs(ride.endRow - vehicle.row);
+            int distanceToRide = Math.abs(ride.startCol - vehicle.col) + Math.abs(ride.startRow - vehicle.row);
             if (distanceToRide + distanceOfRide + step > ride.finalStep) {
                 continue;
             }
             boolean hasBonus = distanceToRide + step <= ride.startStep;
-            int score = distanceOfRide + (hasBonus ? bonus : 0);
+
+            int timeToStartRide = Math.max(ride.startStep - step, distanceToRide);
+            int score = distanceOfRide + (hasBonus ? bonus : 0) - timeToStartRide;
             if (score > bestScore) {
                 bestScore = score;
                 bestRide = ride;
-                finalStep = step + distanceToRide + distanceOfRide;
+                finalStep = Math.max(ride.startStep, step + distanceToRide) + distanceOfRide;
             }
+        }
+        if (bestRide == null) {
+            vehicle.finalStep = Integer.MAX_VALUE;
+            return;
         }
         vehicle.row = bestRide.endRow;
         vehicle.col = bestRide.endCol;

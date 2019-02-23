@@ -8,7 +8,9 @@ import java.util.StringTokenizer;
 public class Problem {
 
     public static void main(String[] args) throws IOException {
-//        System.out.println(read());
+        RidesProblem problem = new GreedySolution();
+        RidesProblemOutput out = problem.solve(read());
+        System.out.println(out);
     }
 
 
@@ -26,7 +28,7 @@ public class Problem {
             for (int i = 0; i < ridesCount; i++) {
                 st = new StringTokenizer(br.readLine());
                 rides.add(new Ride(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()),
-                        Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+                        Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), i));
             }
             return new RidesProblemInput(rows, cols, vehicleCount, ridesCount, bonus, steps, rides);
         }

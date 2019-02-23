@@ -9,13 +9,14 @@ public class Ride {
 	public int index;
 	public boolean used;
 
-    public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep) {
+    public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep, int index) {
         this.startRow = startRow;
         this.startCol = startCol;
         this.endRow = endRow;
         this.endCol = endCol;
         this.startStep = startStep;
         this.finalStep = finalStep;
+        this.index = index;
     }
 
     @Override
