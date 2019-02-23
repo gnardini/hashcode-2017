@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,14 +16,16 @@ public class GreedySolution implements RidesProblem {
             vehicles[i].finalStep = 0;
             vehicles[i].rides = new ArrayList<>();
         }
-        int nextStep = 0;
-        while (nextStep < input.steps) {
-            int currentStep = nextStep;
-            nextStep = Integer.MAX_VALUE;
+        PriorityQueue<Integer> stepsToCheck = new PriorityQueue<>();
+        stepsToCheck.add(0);
+        while (!stepsToCheck.isEmpty()) {
+            int currentStep = stepsToCheck.poll();
             for (VehicleState vehicle : vehicles) {
                 if (vehicle.finalStep == currentStep) {
                     findBestRide(input.rides, vehicle, currentStep, input.bonus);
-                    nextStep = Math.min(nextStep, vehicle.finalStep);
+                    if (vehicle.finalStep != Integer.MAX_VALUE) {
+                        stepsToCheck.add(vehicle.finalStep);
+                    }
                 }
             }
         }
@@ -36,6 +39,9 @@ public class GreedySolution implements RidesProblem {
         int bestScore = Integer.MIN_VALUE;
         Ride bestRide = null;
         int finalStep = -1;
+        int bestTime = Integer.MAX_VALUE;
+        Ride bestRideWithBonus = null;
+        int finalStepWithBonus = -1;
         for (int i = 0; i < rides.size(); i++) {
             Ride ride = rides.get(i);
             if (ride.used) {
@@ -55,6 +61,18 @@ public class GreedySolution implements RidesProblem {
                 bestRide = ride;
                 finalStep = Math.max(ride.startStep, step + distanceToRide) + distanceOfRide;
             }
+            if (bonus > 1000 && hasBonus) {
+                int timeOfRide = timeToStartRide + distanceOfRide;
+                if (timeOfRide < bestTime) {
+                    bestTime = timeOfRide;
+                    bestRideWithBonus = ride;
+                    finalStepWithBonus = Math.max(ride.startStep, step + distanceToRide) + distanceOfRide;
+                }
+            }
+        }
+        if (bestRideWithBonus != null) {
+            bestRide = bestRideWithBonus;
+            finalStep = finalStepWithBonus;
         }
         if (bestRide == null) {
             vehicle.finalStep = Integer.MAX_VALUE;
