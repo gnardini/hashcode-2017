@@ -16,5 +16,17 @@ public class RidesProblemInput {
 		this.ridesCount = ridesCount;
 		this.bonus = bonus;
 		this.steps = steps;
+		this.rides = rides;
+	}
+
+	@Override
+	public String toString() {
+		return "rows=" + rows +
+				", cols=" + cols +
+				", vehicleCount=" + vehicleCount +
+				", ridesCount=" + ridesCount +
+				", bonus=" + bonus +
+				", steps=" + steps +
+				", rides=\n" + rides;
 	}
 }
