@@ -6,6 +6,9 @@ public class Ride {
     public int startStep;
     public int finalStep;
 
+	public int index;
+	public boolean used;
+
     public Ride(int startRow, int startCol, int endRow, int endCol, int startStep, int finalStep) {
         this.startRow = startRow;
         this.startCol = startCol;
@@ -20,4 +23,5 @@ public class Ride {
         return String.format("ride from [%d, %d] to [%d, %d], earliest start %d, latest finish %d\n",
                 startRow, startCol, endRow, endCol, startStep, finalStep);
     }
+
 }

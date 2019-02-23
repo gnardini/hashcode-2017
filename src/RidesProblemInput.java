@@ -17,6 +17,9 @@ public class RidesProblemInput {
 		this.bonus = bonus;
 		this.steps = steps;
 		this.rides = rides;
+		for (int i = 0; i < rides.size(); i++) {
+			rides.get(i).index = i;
+		}
 	}
 
 	@Override
