@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static List<String> files = Arrays.asList("a_example", "b_should_be_easy", "c_no_hurry", "d_metropolis", "e_high_bonus");
+    static List<String> files = Arrays.asList("a_example", "b_lovely_landscapes", "d_pet_pictures", "d_pet_pictures", "e_shiny_selfies");
 
     public static void main(String[] args) throws IOException {
         Problem problem = new Solution();
@@ -40,7 +40,7 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader("./inputs/" + inputFile + ".in"))) {
             StringTokenizer st = new StringTokenizer(br.readLine());
 
-            // TODO
+            
 
             return new Input();
         }
