@@ -1,17 +1,13 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
 
     static List<String> files = Arrays.asList("a_example", "b_lovely_landscapes", "c_memorable_moments", "d_pet_pictures", "e_shiny_selfies");
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new SlidesSolution();
-        //runAll(problem);
+        Problem problem = new Solution();
+//        runAll(problem);
         runOne(problem, files.get(2));
     }
 

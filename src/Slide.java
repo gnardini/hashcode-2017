@@ -34,6 +34,12 @@ public class Slide {
         this.tags = tags;
     }
 
+    public void markAll() {
+        for (Photo photo : photos) {
+            photo.marked = true;
+        }
+    }
+
     public SlideScore tagComparison(Slide otherSlide) {
 		Set<String> intersection = new HashSet<>(this.tags);
 		intersection.retainAll(new HashSet<>(otherSlide.tags));
@@ -80,5 +86,12 @@ public class Slide {
     @Override
     public int hashCode() {
         return Objects.hash(photos, tags, marked);
+    }
+
+    public String toString() {
+        return "Slide{" +
+                "photos=" + photos +
+                ", tags=" + tags +
+                '}';
     }
 }
