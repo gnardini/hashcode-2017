@@ -15,6 +15,8 @@ public class Photo {
 		V,H
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Photo{" +

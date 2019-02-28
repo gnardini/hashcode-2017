@@ -48,6 +48,13 @@ public class Validator {
         return intersection.size();
     }
 
+    public static int score(Photo photo, Photo other) {
+        Set<String> intersection = new HashSet<>(photo.tags);
+        intersection.retainAll(other.tags);
+        int intersect = intersection.size();
+        return Math.min(intersect, Math.min(photo.tags.size() - intersect, other.tags.size() - intersect));
+    }
+
     public static void assertEquals(Photo.Orientation expected, Photo.Orientation actual) {
         if (!expected.equals(actual)) {
             throw new IllegalStateException("expected " + expected + " but got " + actual);

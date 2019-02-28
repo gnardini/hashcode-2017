@@ -60,7 +60,7 @@ public class Main {
     public static void write(Output out, String file) throws IOException {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(out.numberOfSlides);
+        builder.append(out.slides.size());
         builder.append('\n');
 
         for (Slide slide : out.slides) {
