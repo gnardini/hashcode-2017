@@ -1,5 +1,7 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -37,11 +39,21 @@ public class Main {
 
 
     public static Input read(String inputFile) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("./inputs/" + inputFile + ".in"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("./input/" + inputFile + ".txt"))) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-
-
-            return new Input();
+            int photosInCollection = Integer.parseInt(st.nextToken());
+            List<Photo> photos = new ArrayList<>(photosInCollection);
+            for (int i = 0; i < photosInCollection; i++) {
+                st = new StringTokenizer(br.readLine());
+                Photo.Orientation orientation = st.nextToken().equals("V") ? Photo.Orientation.V : Photo.Orientation.H;
+                int numberOfTags = Integer.parseInt(st.nextToken());
+                HashSet<String> tags = new HashSet<>();
+                for (int j = 0; j < numberOfTags; j++) {
+                    tags.add(st.nextToken());
+                }
+                photos.add(new Photo(i, orientation, tags));
+            }
+            return new Input(photosInCollection, photos);
         }
     }
 
