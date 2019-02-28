@@ -10,60 +10,88 @@ public class Solution implements Problem {
         Map<String, Set<Integer>> tagsToPhotoId = calculateTagsMap(input.photos);
 
         List<Slide> slides = new ArrayList<>();
-        Slide currentSlide = findFirstSlide(photosLeft);
-        currentSlide.markAll();
-        for (String tag : currentSlide.tags) {
-            for (Photo photo : currentSlide.photos) {
+        Slide initialSlide = findFirstSlide(photosLeft);
+        initialSlide.markAll();
+        for (String tag : initialSlide.tags) {
+            for (Photo photo : initialSlide.photos) {
                 tagsToPhotoId.get(tag).remove(photo.id);
-//                if (tagsToPhotoId.get(tag).isEmpty()) {
-//                    tagsToPhotoId.remove(tag);
-//                }
             }
         }
-        slides.add(currentSlide);
-        for (Photo photo : currentSlide.photos) {
+        slides.add(initialSlide);
+        for (Photo photo : initialSlide.photos) {
             photosLeft.remove(photo.id);
         }
+
+        List<List<Slide>> listOfListOfSlides = new ArrayList<>();
 
         while (!photosLeft.isEmpty()) {
             int photosLeftCount = photosLeft.size();
             if (photosLeftCount % 50 == 0) {
                 System.out.println(photosLeftCount);
             }
-            currentSlide = findNextSlide(currentSlide, tagsToPhotoId, input.photos);
-            if (currentSlide != null) {
-                currentSlide.markAll();
-                for (String tag : currentSlide.tags) {
-                    for (Photo photo : currentSlide.photos) {
-                        tagsToPhotoId.get(tag).remove(photo.id);
-//                        if (tagsToPhotoId.get(tag).isEmpty()) {
-//                            tagsToPhotoId.remove(tag);
-//                        }
-                    }
+            Slide firstSlide = findNextSlide(slides.get(0), tagsToPhotoId, input.photos);
+            Slide lastSlide = findNextSlide(slides.get(slides.size() - 1), tagsToPhotoId, input.photos);
+
+            Slide bestSlide = null;
+            if (firstSlide != null && lastSlide != null) {
+                int firstScore = firstSlide.transitionScoreTo(slides.get(0));
+                int lastScore = lastSlide.transitionScoreTo(slides.get(slides.size() - 1));
+                if (firstScore > lastScore) {
+                    slides.add(0, firstSlide);
+                    bestSlide = firstSlide;
+                } else {
+                    slides.add(lastSlide);
+                    bestSlide = lastSlide;
                 }
-                slides.add(currentSlide);
-                for (Photo photo : currentSlide.photos) {
-                    photosLeft.remove(photo.id);
-                }
+            } else if (firstSlide != null) {
+                bestSlide = firstSlide;
+                slides.add(0, firstSlide);
+            } else if (lastSlide != null) {
+                bestSlide = lastSlide;
+                slides.add(lastSlide);
             } else {
-                currentSlide = findFirstSlide(photosLeft);
-                currentSlide.markAll();
-                for (String tag : currentSlide.tags) {
-                    for (Photo photo : currentSlide.photos) {
-                        tagsToPhotoId.get(tag).remove(photo.id);
-//                        if (tagsToPhotoId.get(tag).isEmpty()) {
-//                            tagsToPhotoId.remove(tag);
-//                        }
-                    }
-                }
-                slides.add(currentSlide);
-                for (Photo photo : currentSlide.photos) {
-                    photosLeft.remove(photo.id);
+                listOfListOfSlides.add(slides);
+                slides = new ArrayList<>();
+                initialSlide = findFirstSlide(photosLeft);
+                slides.add(initialSlide);
+                bestSlide = initialSlide;
+            }
+
+            for (String tag : bestSlide.tags) {
+                for (Photo photo : bestSlide.photos) {
+                    tagsToPhotoId.get(tag).remove(photo.id);
                 }
             }
-        }
+            for (Photo photo : bestSlide.photos) {
+                photosLeft.remove(photo.id);
+            }
 
-        return new Output(slides);
+            bestSlide.markAll();
+
+//            if (currentSlide != null) {
+//
+//            } else {
+//                currentSlide = findFirstSlide(photosLeft);
+//                currentSlide.markAll();
+//                for (String tag : currentSlide.tags) {
+//                    for (Photo photo : currentSlide.photos) {
+//                        tagsToPhotoId.get(tag).remove(photo.id);
+////                        if (tagsToPhotoId.get(tag).isEmpty()) {
+////                            tagsToPhotoId.remove(tag);
+////                        }
+//                    }
+//                }
+//                slides.add(currentSlide);
+//                for (Photo photo : currentSlide.photos) {
+//                    photosLeft.remove(photo.id);
+//                }
+//            }
+        }
+        listOfListOfSlides.add(slides);
+
+        List<Slide> resultSlides = listOfListOfSlides.stream().flatMap(list -> list.stream()).collect(Collectors.toList());
+
+        return new Output(resultSlides);
     }
 
     private Slide findNextSlide(Slide slide, Map<String, Set<Integer>> tagToPhotos, List<Photo> inputPhotos) {

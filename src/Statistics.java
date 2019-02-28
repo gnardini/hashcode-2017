@@ -12,20 +12,20 @@ import java.util.stream.Collectors;
 public class Statistics {
 
     public static void main(String[] args) throws IOException {
-        System.out.println("B");
-        computeStats(Main.read("b_lovely_landscapes"));
-        System.out.println();
-
-        System.out.println("C");
-        computeStats(Main.read("c_memorable_moments"));
-        System.out.println();
-
+//        System.out.println("B");
+//        computeStats(Main.read("b_lovely_landscapes"));
+//        System.out.println();
+//
+//        System.out.println("C");
+//        computeStats(Main.read("c_memorable_moments"));
+//        System.out.println();
+//
         System.out.println("D");
         computeStats(Main.read("d_pet_pictures"));
         System.out.println();
 
-        System.out.println("E");
-        computeStats(Main.read("e_shiny_selfies"));
+//        System.out.println("E");
+//        computeStats(Main.read("e_shiny_selfies"));
     }
 
     public static void computeStats(Input input) {
