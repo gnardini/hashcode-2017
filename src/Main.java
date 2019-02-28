@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Problem problem = new Solution();
 //        runAll(problem);
-        runOne(problem, files.get(4));
+        runOne(problem, files.get(3));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {

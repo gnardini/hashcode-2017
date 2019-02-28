@@ -7,25 +7,40 @@ public class Solution implements Problem {
     @Override
     public Output solve(Input input) {
         Map<Integer, Photo> photosLeft = input.photos.stream().collect(Collectors.toMap(p -> p.id, Function.identity()));
-        Map<String, List<Integer>> tagsToPhotoId = calculateTagsMap(input.photos);
+        Map<String, Set<Integer>> tagsToPhotoId = calculateTagsMap(input.photos);
 
         List<Slide> slides = new ArrayList<>();
         Slide currentSlide = findFirstSlide(photosLeft);
         currentSlide.markAll();
+        for (String tag : currentSlide.tags) {
+            for (Photo photo : currentSlide.photos) {
+                tagsToPhotoId.get(tag).remove(photo.id);
+//                if (tagsToPhotoId.get(tag).isEmpty()) {
+//                    tagsToPhotoId.remove(tag);
+//                }
+            }
+        }
         slides.add(currentSlide);
         for (Photo photo : currentSlide.photos) {
             photosLeft.remove(photo.id);
         }
 
-        System.out.println("starting");
         while (!photosLeft.isEmpty()) {
             int photosLeftCount = photosLeft.size();
-//            if (photosLeftCount % 50 == 0) {
-            System.out.println(photosLeft);
-//            }
+            if (photosLeftCount % 50 == 0) {
+                System.out.println(photosLeftCount);
+            }
             currentSlide = findNextSlide(currentSlide, tagsToPhotoId, input.photos);
             if (currentSlide != null) {
                 currentSlide.markAll();
+                for (String tag : currentSlide.tags) {
+                    for (Photo photo : currentSlide.photos) {
+                        tagsToPhotoId.get(tag).remove(photo.id);
+//                        if (tagsToPhotoId.get(tag).isEmpty()) {
+//                            tagsToPhotoId.remove(tag);
+//                        }
+                    }
+                }
                 slides.add(currentSlide);
                 for (Photo photo : currentSlide.photos) {
                     photosLeft.remove(photo.id);
@@ -33,6 +48,14 @@ public class Solution implements Problem {
             } else {
                 currentSlide = findFirstSlide(photosLeft);
                 currentSlide.markAll();
+                for (String tag : currentSlide.tags) {
+                    for (Photo photo : currentSlide.photos) {
+                        tagsToPhotoId.get(tag).remove(photo.id);
+//                        if (tagsToPhotoId.get(tag).isEmpty()) {
+//                            tagsToPhotoId.remove(tag);
+//                        }
+                    }
+                }
                 slides.add(currentSlide);
                 for (Photo photo : currentSlide.photos) {
                     photosLeft.remove(photo.id);
@@ -43,10 +66,30 @@ public class Solution implements Problem {
         return new Output(slides);
     }
 
-    private Slide findNextSlide(Slide slide, Map<String, List<Integer>> tagToPhotos, List<Photo> inputPhotos) {
-        Set<Integer> photoIds = slide.tags.stream()
-                .flatMap(tag -> tagToPhotos.get(tag).stream())
-                .collect(Collectors.toSet());
+    private Slide findNextSlide(Slide slide, Map<String, Set<Integer>> tagToPhotos, List<Photo> inputPhotos) {
+//        Set<Integer> photoIds = slide.tags.stream()
+//                .flatMap(tag -> tagToPhotos.get(tag).stream())
+//                .collect(Collectors.toSet());
+        int max = -1;
+        Set<Integer> photoIds = null;
+        for (String tag : slide.tags.stream()
+                .filter(tag -> !tagToPhotos.get(tag).isEmpty())
+                .collect(Collectors.toList())) {
+            if (photoIds == null) {
+                photoIds = tagToPhotos.get(tag);
+            } else {
+                Set<Integer> previous = new HashSet<>(photoIds);
+                photoIds.retainAll(tagToPhotos.get(tag));
+                if (photoIds.isEmpty()) {
+                    photoIds = previous;
+                    break;
+                }
+            }
+        }
+        if (photoIds == null) {
+            return null;
+        }
+//        System.out.println(photoIds.size());
 
         int maxScore = -1;
         Slide nextSlide = null;
@@ -89,7 +132,6 @@ public class Solution implements Problem {
 //                }
             }
         }
-
         return nextSlide;
     }
 
@@ -115,8 +157,8 @@ public class Solution implements Problem {
         return new Slide(bestPhoto);
     }
 
-    private Map<String, List<Integer>> calculateTagsMap(List<Photo> originalPhotos) {
-        Map<String, List<Integer>> tagsToPhotoId = new HashMap<>();
+    private Map<String, Set<Integer>> calculateTagsMap(List<Photo> originalPhotos) {
+        Map<String, Set<Integer>> tagsToPhotoId = new HashMap<>();
         for (Photo photo : originalPhotos) {
             for (String tag : photo.tags) {
                 tagsToPhotoId.computeIfPresent(tag, (key, photos) -> {
@@ -124,7 +166,7 @@ public class Solution implements Problem {
                     return photos;
                 });
                 tagsToPhotoId.computeIfAbsent(tag, key -> {
-                    ArrayList<Integer> array = new ArrayList<>();
+                    Set<Integer> array = new HashSet<>();
                     array.add(photo.id);
                     return array;
                 });
