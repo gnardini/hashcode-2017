@@ -24,7 +24,7 @@ public class Slide {
 		Set<String> union = new HashSet<>(this.tags);
 		union.addAll(new HashSet<>(otherSlide.tags));
 		Set<String> onlyInCurrentPhoto = new HashSet<>(this.tags);
-		Set<String> onlyInNextPhoto = otherSlide.tags;
+		Set<String> onlyInNextPhoto = new HashSet<>(otherSlide.tags);
 		onlyInCurrentPhoto.removeAll(onlyInNextPhoto);
     	return new SlideScore(onlyInCurrentPhoto.size(), onlyInNextPhoto.size(), union.size());
 	}
