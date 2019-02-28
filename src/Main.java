@@ -7,12 +7,12 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-    static List<String> files = Arrays.asList("a_example", "b_lovely_landscapes", "d_pet_pictures", "d_pet_pictures", "e_shiny_selfies");
+    static List<String> files = Arrays.asList("a_example", "b_lovely_landscapes", "c_memorable_moments", "d_pet_pictures", "e_shiny_selfies");
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new Solution();
-//        runAll(problem);
-        runOne(problem, files.get(0));
+        Problem problem = new SlidesSolution();
+        //runAll(problem);
+        runOne(problem, files.get(2));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -65,12 +65,12 @@ public class Main {
 
         for (Slide slide : out.slides) {
             if (slide.photos.size() == 1) {
-                builder.append(slide.photos.get(0));
+                builder.append(slide.photos.get(0).id);
                 builder.append('\n');
             } else {
-                builder.append(slide.photos.get(0));
+                builder.append(slide.photos.get(0).id);
                 builder.append(' ');
-                builder.append(slide.photos.get(1));
+                builder.append(slide.photos.get(1).id);
                 builder.append('\n');
             }
         }

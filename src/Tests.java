@@ -22,7 +22,7 @@ public class Tests {
                         new Photo(2, Photo.Orientation.V, new HashSet<>(Arrays.asList("selfie", "smile")))))
         );
 
-        Output output = new Output(slides.size(), slides);
+        Output output = new Output(slides);
 
         try {
             Validator.validateSolution(input, output);
@@ -41,7 +41,7 @@ public class Tests {
                         new Photo(2, Photo.Orientation.V, new HashSet<>(Arrays.asList("selfie", "smile")))))
         );
 
-        Output output = new Output(slides.size(), slides);
+        Output output = new Output(slides);
 
         try {
             Validator.validateSolution(input, output);
@@ -60,7 +60,7 @@ public class Tests {
                         new Photo(2, Photo.Orientation.V, new HashSet<>(Arrays.asList("selfie", "smile")))))
         );
 
-        Output output = new Output(slides.size(), slides);
+        Output output = new Output(slides);
 
         try {
             Validator.validateSolution(input, output);
@@ -80,7 +80,7 @@ public class Tests {
                         new Photo(2, Photo.Orientation.V, new HashSet<>(Arrays.asList("selfie", "smile")))))
         );
 
-        Output output = new Output(slides.size(), slides);
+        Output output = new Output(slides);
         assertEquals(2, Validator.score(input, output));
     }
 

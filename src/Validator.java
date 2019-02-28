@@ -36,8 +36,8 @@ public class Validator {
 
     public static int score(Input input, Output output) {
         int score = 0;
-        for (int i = 0; i < output.numberOfSlides - 1; i++) {
-            score += score(output.slides.get(i), output.slides.get(i + 1));
+        for (int i = 0; i < output.slides.size() - 1; i++) {
+            score += output.slides.get(i).transitionScoreTo(output.slides.get(i + 1));
         }
         return score;
     }

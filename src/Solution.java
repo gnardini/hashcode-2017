@@ -46,8 +46,6 @@ public class Solution implements Problem {
                 }
             }
         }
-        if
-        slides.add(new Slide());
 
         return new Output(slides);
     }

@@ -3,6 +3,7 @@ import java.util.*;
 public class Slide {
     public List<Photo> photos;
     public Set<String> tags;
+    public boolean marked;
 
     public Slide(Photo photo) {
         this.photos = new ArrayList<>();
@@ -34,12 +35,16 @@ public class Slide {
     }
 
     public SlideScore tagComparison(Slide otherSlide) {
-		Set<String> union = new HashSet<>(this.tags);
-		union.addAll(new HashSet<>(otherSlide.tags));
+		Set<String> intersection = new HashSet<>(this.tags);
+		intersection.retainAll(new HashSet<>(otherSlide.tags));
+
 		Set<String> onlyInCurrentPhoto = new HashSet<>(this.tags);
+		onlyInCurrentPhoto.removeAll(new HashSet<>(intersection));
+
 		Set<String> onlyInNextPhoto = new HashSet<>(otherSlide.tags);
-		onlyInCurrentPhoto.removeAll(onlyInNextPhoto);
-    	return new SlideScore(onlyInCurrentPhoto.size(), onlyInNextPhoto.size(), union.size());
+        onlyInNextPhoto.removeAll(new HashSet<>(intersection));
+
+    	return new SlideScore(onlyInCurrentPhoto.size(), onlyInNextPhoto.size(), intersection.size());
 	}
 
 	public int transitionScoreTo(Slide otherSlide) {
@@ -61,4 +66,19 @@ public class Slide {
 			return Collections.min(Arrays.asList(tagsOnlyInCurrentPhoto, tagsInBothPhotos, tagsOnlyInNextPhoto));
 		}
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Slide slide = (Slide) o;
+        return marked == slide.marked &&
+                Objects.equals(photos, slide.photos) &&
+                Objects.equals(tags, slide.tags);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(photos, tags, marked);
+    }
 }
