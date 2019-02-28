@@ -2,10 +2,10 @@ import java.util.List;
 
 public class Output {
     final int numberOfSlides;
-    final List<List<Integer>> photoOrder;
+    final List<Slide> slides;
 
-    public Output(int numberOfSlides, List<List<Integer>> photoOrder) {
+    public Output(int numberOfSlides, List<Slide> slides) {
         this.numberOfSlides = numberOfSlides;
-        this.photoOrder = photoOrder;
+        this.slides = slides;
     }
 }

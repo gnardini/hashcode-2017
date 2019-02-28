@@ -40,7 +40,6 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader("./inputs/" + inputFile + ".in"))) {
             StringTokenizer st = new StringTokenizer(br.readLine());
 
-            
 
             return new Input();
         }
@@ -52,14 +51,14 @@ public class Main {
         builder.append(out.numberOfSlides);
         builder.append('\n');
 
-        for (List<Integer> photoIds : out.photoOrder) {
-            if (photoIds.size() == 1) {
-                builder.append(photoIds.get(0));
+        for (Slide slide : out.slides) {
+            if (slide.photos.size() == 1) {
+                builder.append(slide.photos.get(0));
                 builder.append('\n');
             } else {
-                builder.append(photoIds.get(0));
+                builder.append(slide.photos.get(0));
                 builder.append(' ');
-                builder.append(photoIds.get(1));
+                builder.append(slide.photos.get(1));
                 builder.append('\n');
             }
         }
