@@ -1,12 +1,25 @@
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Slide {
     public List<Photo> photos;
     public Set<String> tags;
+
+    public Slide(Photo photo) {
+        this.photos = new ArrayList<>();
+        this.photos.add(photo);
+        this.tags = new HashSet<>();
+        this.tags.addAll(photo.tags);
+    }
+
+    public Slide(Photo photo, Photo other) {
+        this.photos = new ArrayList<>();
+        this.photos.add(photo);
+        this.photos.add(other);
+        this.tags = new HashSet<>();
+        this.tags.addAll(photo.tags);
+        this.tags.addAll(other.tags);
+    }
+
 
     public Slide(List<Photo> photos) {
         this.photos = photos;

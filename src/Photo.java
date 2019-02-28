@@ -5,6 +5,8 @@ public class Photo {
 	public Orientation orientation;
 	public Set<String> tags;
 
+	boolean marked;
+
 	public Photo(int id, Orientation orientation, Set<String> tags) {
 		this.id = id;
 		this.orientation = orientation;
@@ -15,7 +17,13 @@ public class Photo {
 		V,H
 	}
 
+	boolean vertical() {
+		return orientation == Orientation.V;
+	}
 
+	boolean horizontal() {
+		return orientation == Orientation.H;
+	}
 
 	@Override
 	public String toString() {
