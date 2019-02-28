@@ -49,7 +49,20 @@ public class Main {
     public static void write(Output out, String file) throws IOException {
         StringBuilder builder = new StringBuilder();
 
-        // TODO: Write to builder.
+        builder.append(out.numberOfSlides);
+        builder.append('\n');
+
+        for (List<Integer> photoIds : out.photoOrder) {
+            if (photoIds.size() == 1) {
+                builder.append(photoIds.get(0));
+                builder.append('\n');
+            } else {
+                builder.append(photoIds.get(0));
+                builder.append(' ');
+                builder.append(photoIds.get(1));
+                builder.append('\n');
+            }
+        }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("./output/" + file + ".txt"));
         writer.write(builder.toString());
