@@ -49,7 +49,7 @@ public class Validator {
     }
 
     public static void assertEquals(Photo.Orientation expected, Photo.Orientation actual) {
-        if (expected.equals(actual)) {
+        if (!expected.equals(actual)) {
             throw new IllegalStateException("expected " + expected + " but got " + actual);
         }
     }
