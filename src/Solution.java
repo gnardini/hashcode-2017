@@ -17,11 +17,12 @@ public class Solution implements Problem {
             photosLeft.remove(photo.id);
         }
 
+        System.out.println("starting");
         while (!photosLeft.isEmpty()) {
             int photosLeftCount = photosLeft.size();
-            if (photosLeftCount % 50 == 0) {
-                System.out.println(photosLeft);
-            }
+//            if (photosLeftCount % 50 == 0) {
+            System.out.println(photosLeft);
+//            }
             currentSlide = findNextSlide(currentSlide, tagsToPhotoId, input.photos);
             if (currentSlide != null) {
                 currentSlide.markAll();
@@ -43,11 +44,9 @@ public class Solution implements Problem {
     }
 
     private Slide findNextSlide(Slide slide, Map<String, List<Integer>> tagToPhotos, List<Photo> inputPhotos) {
-        System.out.println(slide.tags.size());
         Set<Integer> photoIds = slide.tags.stream()
                 .flatMap(tag -> tagToPhotos.get(tag).stream())
                 .collect(Collectors.toSet());
-        
 
         int maxScore = -1;
         Slide nextSlide = null;
@@ -72,15 +71,22 @@ public class Solution implements Problem {
         if (verticalIds.size() > 1) {
             for (int i = 0; i < verticalIds.size(); i++) {
                 int verticalId = verticalIds.get(i);
-                for (int j = i + 1; j < verticalIds.size(); j++) {
-                    int otherVerticalId = verticalIds.get(j);
-                    Slide potentialSlide = new Slide(inputPhotos.get(verticalId), inputPhotos.get(otherVerticalId));
-                    int score = slide.transitionScoreTo(potentialSlide);
-                    if (score > maxScore) {
-                        maxScore = score;
-                        nextSlide = potentialSlide;
-                    }
+                int otherId = verticalIds.get((i + 1) % verticalIds.size());
+                Slide potentialSlide = new Slide(inputPhotos.get(verticalId), inputPhotos.get(otherId));
+                int score = slide.transitionScoreTo(potentialSlide);
+                if (score > maxScore) {
+                    maxScore = score;
+                    nextSlide = potentialSlide;
                 }
+//                for (int j = i + 1; j < verticalIds.size(); j++) {
+//                    int otherVerticalId = verticalIds.get(j);
+//                    Slide potentialSlide = new Slide(inputPhotos.get(verticalId), inputPhotos.get(otherVerticalId));
+//                    int score = slide.transitionScoreTo(potentialSlide);
+//                    if (score > maxScore) {
+//                        maxScore = score;
+//                        nextSlide = potentialSlide;
+//                    }
+//                }
             }
         }
 
