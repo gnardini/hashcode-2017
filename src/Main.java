@@ -11,9 +11,9 @@ public class Main {
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new VideoCacheSolution();
-//        runAll(problem);
-        runOne(problem, files.get(0));
+        Problem problem = new Solution1();
+        runAll(problem);
+//        runOne(problem, files.get(3));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -64,8 +64,8 @@ public class Main {
             Map<Integer, Integer> caches = new HashMap<>();
             for (int j = 0; j < k; j++) {
                 caches.put(readInt(), readInt());
-                Es[i] = new Input.Endpoint(i, Ld, k, caches);
             }
+            Es[i] = new Input.Endpoint(i, Ld, k, caches);
         }
         Input.Request[] Rs = new Input.Request[R];
         for (int i = 0; i < R; i++) {
