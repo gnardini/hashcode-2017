@@ -26,7 +26,7 @@ public class VideoCacheSolution implements Problem {
     public Output solve(Input input) {
         endpointVideoRequests = new int[input.E][input.V];
         for (Input.Request r : input.Rs) {
-            endpointVideoRequests[r.videoId][r.endpointId] += r.R;
+            endpointVideoRequests[r.endpointId][r.videoId] += r.R;
         }
         cachesToEndpoints = new HashMap<>();
         for (int i = 0; i < input.Es.length; i++) {
@@ -61,7 +61,11 @@ public class VideoCacheSolution implements Problem {
 
     private int timeSavedVideoInCache(int videoId, int cacheId) {
         int timeSaved = 0;
-        for (Input.Endpoint endpoint : cachesToEndpoints.get(cacheId)) {
+        List<Input.Endpoint> endpoints = cachesToEndpoints.get(cacheId);
+        if (endpoints == null || endpoints.isEmpty()) {
+            return 0;
+        }
+        for (Input.Endpoint endpoint : endpoints) {
             timeSaved += endpointVideoRequests[endpoint.id][videoId] * (endpoint.latency - endpoint.caches.get(cacheId));
         }
         return timeSaved;
