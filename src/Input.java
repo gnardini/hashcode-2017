@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Map;
 
 public class Input {
@@ -8,10 +7,10 @@ public class Input {
 	public final int C;
 	public final int X;
 	public final int[] Vs;
-	public final Endpoint Es;
+	public final Endpoint[] Es;
 	public final Request[] Rs;
 
-	public Input(int v, int e, int r, int c, int x, int[] vs, Endpoint es, Request[] rs) {
+	public Input(int v, int e, int r, int c, int x, int[] vs, Endpoint[] es, Request[] rs) {
 		V = v;
 		E = e;
 		R = r;

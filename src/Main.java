@@ -3,12 +3,13 @@ import java.util.*;
 
 public class Main {
 
-    static List<String> files = Arrays.asList("a_example", "b_lovely_landscapes", "c_memorable_moments", "d_pet_pictures", "e_shiny_selfies");
+    static List<String> files = Arrays.asList("kittens.in.txt", "me_at_the_zoo.in", "trending_today.in", "videos_worth_spreading.in");
+    static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
         Problem problem = new Solution();
 //        runAll(problem);
-        runOne(problem, files.get(3));
+        runOne(problem, files.get(1));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -33,43 +34,59 @@ public class Main {
         System.out.println(score);
     }
 
+    private static int readInt() {
+        return Integer.parseInt(st.nextToken());
+    }
+
 
     public static Input read(String inputFile) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader("./input/" + inputFile + ".txt"))) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int photosInCollection = Integer.parseInt(st.nextToken());
-            List<Photo> photos = new ArrayList<>(photosInCollection);
-            for (int i = 0; i < photosInCollection; i++) {
-                st = new StringTokenizer(br.readLine());
-                Photo.Orientation orientation = st.nextToken().equals("V") ? Photo.Orientation.V : Photo.Orientation.H;
-                int numberOfTags = Integer.parseInt(st.nextToken());
-                HashSet<String> tags = new HashSet<>();
-                for (int j = 0; j < numberOfTags; j++) {
-                    tags.add(st.nextToken());
-                }
-                photos.add(new Photo(i, orientation, tags));
+            st = new StringTokenizer(br.readLine());
+
+            int V = readInt();
+            int E = readInt();
+            int R = readInt();
+            int C = readInt();
+            int X = readInt();
+            int[] videoSizes = new int[V];
+            for (int i = 0; i < V; i++) {
+                videoSizes[i] = readInt();
             }
-            return new Input(photosInCollection, photos);
+            Input.Endpoint[] Es = new Input.Endpoint[E];
+            for (int i = 0; i < E; i++) {
+                int Ld = readInt();
+                int k = readInt();
+                Map<Integer, Integer> caches = new HashMap<>();
+                for (int j = 0; j < k; j++) {
+                    caches.put(readInt(), readInt());
+                }
+                Es[i] = new Input.Endpoint(Ld, k, caches);
+            }
+            Input.Request[] Rs = new Input.Request[R];
+            for (int i = 0; i < R; i++) {
+                Rs[i] = new Input.Request(readInt(), readInt(), readInt());
+            }
+            return new Input(V, E, R, C, X, videoSizes, Es, Rs);
         }
     }
 
     public static void write(Output out, String file) throws IOException {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(out.slides.size());
-        builder.append('\n');
-
-        for (Slide slide : out.slides) {
-            if (slide.photos.size() == 1) {
-                builder.append(slide.photos.get(0).id);
-                builder.append('\n');
-            } else {
-                builder.append(slide.photos.get(0).id);
-                builder.append(' ');
-                builder.append(slide.photos.get(1).id);
-                builder.append('\n');
-            }
-        }
+//        builder.append(out.slides.size());
+//        builder.append('\n');
+//
+//        for (Slide slide : out.slides) {
+//            if (slide.photos.size() == 1) {
+//                builder.append(slide.photos.get(0).id);
+//                builder.append('\n');
+//            } else {
+//                builder.append(slide.photos.get(0).id);
+//                builder.append(' ');
+//                builder.append(slide.photos.get(1).id);
+//                builder.append('\n');
+//            }
+//        }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("./output/" + file + ".txt"));
         writer.write(builder.toString());
