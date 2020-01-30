@@ -19,7 +19,7 @@ public class Validator {
                     throw new RuntimeException("invalid video id: " + video);
                 }
 
-                load += input.videoSizes[0];
+                load += input.videoSizes[video];
             }
 
             if(load > input.X) {
