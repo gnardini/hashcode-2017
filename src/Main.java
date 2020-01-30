@@ -19,7 +19,8 @@ public class Main {
     private static void runOne(Problem problem, String file) throws IOException {
         Input input = read(file);
         Output out = problem.solve(input);
-        write(out, file);
+        Validator.validateSolution(input, out);
+//        write(out, file);
         Validator.validateSolution(input, out);
         System.out.println(Validator.score(input, out));
     }

@@ -29,11 +29,11 @@ public class Validator {
     }
 
     public static int score(Input input, Output output) {
-        int score = 0;
-        int totalRequests = 0;
+        long score = 0;
+        long totalRequests = 0;
         for (Input.Request request: input.Rs) {
             Input.Endpoint endpoint = input.Es[request.endpointId];
-            int Lmin = endpoint.latency;
+            long Lmin = endpoint.latency;
             for (int cache: endpoint.caches.keySet()) {
                 if (output.caches.containsKey(cache) && output.caches.get(cache).contains(request.videoId)) {
                     Lmin = Math.min(Lmin, endpoint.caches.get(cache));
@@ -43,6 +43,6 @@ public class Validator {
             score += request.R * (endpoint.latency - Lmin);
             totalRequests += request.R;
         }
-        return (int) Math.floor((score * 1000.0)/totalRequests);
+        return (int) (Math.floor((score * 1000.0)/totalRequests));
     }
 }
