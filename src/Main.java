@@ -1,15 +1,19 @@
+import sun.nio.ch.IOUtil;
+
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
 
-    static List<String> files = Arrays.asList("kittens.in.txt", "me_at_the_zoo.in", "trending_today.in", "videos_worth_spreading.in");
+    static List<String> files = Arrays.asList("kittens.in", "me_at_the_zoo.in", "trending_today.in", "videos_worth_spreading.in");
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new Solution();
+        Problem problem = new Solution1();
 //        runAll(problem);
-        runOne(problem, files.get(1));
+        runOne(problem, files.get(0));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -40,34 +44,33 @@ public class Main {
 
 
     public static Input read(String inputFile) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader("./input/" + inputFile + ".txt"))) {
-            st = new StringTokenizer(br.readLine());
+        String contents = new String(Files.readAllBytes(Paths.get("./input/" + inputFile)));
+        st = new StringTokenizer(contents);
 
-            int V = readInt();
-            int E = readInt();
-            int R = readInt();
-            int C = readInt();
-            int X = readInt();
-            int[] videoSizes = new int[V];
-            for (int i = 0; i < V; i++) {
-                videoSizes[i] = readInt();
-            }
-            Input.Endpoint[] Es = new Input.Endpoint[E];
-            for (int i = 0; i < E; i++) {
-                int Ld = readInt();
-                int k = readInt();
-                Map<Integer, Integer> caches = new HashMap<>();
-                for (int j = 0; j < k; j++) {
-                    caches.put(readInt(), readInt());
-                }
-                Es[i] = new Input.Endpoint(Ld, k, caches);
-            }
-            Input.Request[] Rs = new Input.Request[R];
-            for (int i = 0; i < R; i++) {
-                Rs[i] = new Input.Request(readInt(), readInt(), readInt());
-            }
-            return new Input(V, E, R, C, X, videoSizes, Es, Rs);
+        int V = readInt();
+        int E = readInt();
+        int R = readInt();
+        int C = readInt();
+        int X = readInt();
+        int[] videoSizes = new int[V];
+        for (int i = 0; i < V; i++) {
+            videoSizes[i] = readInt();
         }
+        Input.Endpoint[] Es = new Input.Endpoint[E];
+        for (int i = 0; i < E; i++) {
+            int Ld = readInt();
+            int k = readInt();
+            Map<Integer, Integer> caches = new HashMap<>();
+            for (int j = 0; j < k; j++) {
+                caches.put(readInt(), readInt());
+            }
+            Es[i] = new Input.Endpoint(Ld, k, caches);
+        }
+        Input.Request[] Rs = new Input.Request[R];
+        for (int i = 0; i < R; i++) {
+            Rs[i] = new Input.Request(readInt(), readInt(), readInt());
+        }
+        return new Input(V, E, R, C, X, videoSizes, Es, Rs);
     }
 
     public static void write(Output out, String file) throws IOException {

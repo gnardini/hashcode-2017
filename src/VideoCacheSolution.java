@@ -12,7 +12,6 @@ public class VideoCacheSolution implements Problem {
     }
 
     private int timeSavedVideoInCache(Input input, int video, int cache) {
-        input.
         return 0;
     }
 }
