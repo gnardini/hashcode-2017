@@ -73,20 +73,17 @@ public class Main {
     public static void write(Output out, String file) throws IOException {
         StringBuilder builder = new StringBuilder();
 
-//        builder.append(out.slides.size());
-//        builder.append('\n');
-//
-//        for (Slide slide : out.slides) {
-//            if (slide.photos.size() == 1) {
-//                builder.append(slide.photos.get(0).id);
-//                builder.append('\n');
-//            } else {
-//                builder.append(slide.photos.get(0).id);
-//                builder.append(' ');
-//                builder.append(slide.photos.get(1).id);
-//                builder.append('\n');
-//            }
-//        }
+        builder.append(out.caches.size());
+        builder.append('\n');
+
+        for (Map.Entry<Integer, List<Integer>> entry : out.caches.entrySet()) {
+            builder.append(entry.getKey());
+            for (Integer videoId : entry.getValue()) {
+                builder.append(' ');
+                builder.append(videoId);
+            }
+            builder.append('\n');
+        }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("./output/" + file + ".txt"));
         writer.write(builder.toString());
