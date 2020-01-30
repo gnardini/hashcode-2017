@@ -1,6 +1,4 @@
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Validator {
@@ -21,7 +19,7 @@ public class Validator {
                     throw new RuntimeException("invalid video id: " + video);
                 }
 
-                load += input.Vs[0];
+                load += input.videoSizes[0];
             }
 
             if(load > input.X) {
@@ -34,16 +32,16 @@ public class Validator {
         int score = 0;
         int totalRequests = 0;
         for (Input.Request request: input.Rs) {
-            Input.Endpoint endpoint = input.Es[request.Re];
-            int Lmin = endpoint.Ld;
-            for (int cache: endpoint.L.keySet()) {
-                if (output.caches.containsKey(cache) && output.caches.get(cache).contains(request.Rv)) {
-                    Lmin = Math.min(Lmin, endpoint.L.get(cache));
+            Input.Endpoint endpoint = input.Es[request.endpointId];
+            int Lmin = endpoint.latency;
+            for (int cache: endpoint.caches.keySet()) {
+                if (output.caches.containsKey(cache) && output.caches.get(cache).contains(request.videoId)) {
+                    Lmin = Math.min(Lmin, endpoint.caches.get(cache));
                 }
             }
 
-            score += request.Rn * (endpoint.Ld - Lmin);
-            totalRequests += request.Rn;
+            score += request.R * (endpoint.latency - Lmin);
+            totalRequests += request.R;
         }
         return (int) Math.floor((score * 1000.0)/totalRequests);
     }

@@ -6,7 +6,7 @@ public class Input {
 	public final int R;
 	public final int C;
 	public final int X;
-	public final int[] Vs;
+	public final int[] videoSizes;
 	public final Endpoint[] Es;
 	public final Request[] Rs;
 
@@ -16,32 +16,32 @@ public class Input {
 		R = r;
 		C = c;
 		X = x;
-		Vs = vs;
+		videoSizes = vs;
 		Es = es;
 		Rs = rs;
 	}
 
 	public static class Endpoint {
-		public final int Ld;
+		public final int latency; // latencia del data center
 		public final int K;
-		public final Map<Integer, Integer> L;
+		public final Map<Integer, Integer> caches; // cache -> latencia
 
 		public Endpoint(int ld, int k, Map<Integer, Integer> l) {
-			Ld = ld;
+			latency = ld;
 			K = k;
-			L = l;
+			caches = l;
 		}
 	}
 
 	public static class Request {
-		public final int Rv;
-		public final int Re;
-		public final int Rn;
+		public final int videoId;
+		public final int endpointId;
+		public final int R;
 
 		public Request(int rv, int re, int rn) {
-			Rv = rv;
-			Re = re;
-			Rn = rn;
+			videoId = rv;
+			endpointId = re;
+			R = rn;
 		}
 	}
 }

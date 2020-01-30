@@ -76,7 +76,7 @@ public class Main {
         builder.append(out.caches.size());
         builder.append('\n');
 
-        for (Map.Entry<Integer, List<Integer>> entry : out.caches.entrySet()) {
+        for (Map.Entry<Integer, Set<Integer>> entry : out.caches.entrySet()) {
             builder.append(entry.getKey());
             for (Integer videoId : entry.getValue()) {
                 builder.append(' ');
