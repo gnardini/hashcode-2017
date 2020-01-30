@@ -22,11 +22,13 @@ public class Input {
 	}
 
 	public static class Endpoint {
+		public final int id;
 		public final int latency; // latencia del data center
 		public final int K;
 		public final Map<Integer, Integer> caches; // cache -> latencia
 
-		public Endpoint(int ld, int k, Map<Integer, Integer> l) {
+		public Endpoint(int id, int ld, int k, Map<Integer, Integer> l) {
+			this.id = id;
 			latency = ld;
 			K = k;
 			caches = l;

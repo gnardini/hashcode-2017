@@ -63,8 +63,8 @@ public class Main {
             Map<Integer, Integer> caches = new HashMap<>();
             for (int j = 0; j < k; j++) {
                 caches.put(readInt(), readInt());
+                Es[i] = new Input.Endpoint(i, Ld, k, caches);
             }
-            Es[i] = new Input.Endpoint(Ld, k, caches);
         }
         Input.Request[] Rs = new Input.Request[R];
         for (int i = 0; i < R; i++) {
