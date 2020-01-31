@@ -12,15 +12,15 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 //        Problem problem = new Solution2();
-        runAll(new Solution3());
-//        runOne(new Solution3(), files.get(2));
+//        runAll(new VideoCacheSolution());
+        runOne(new VideoCacheSolution(), files.get(3));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
         Input input = read(file);
         Output out = problem.solve(input);
         Validator.validateSolution(input, out);
-//        write(out, file);
+        write(out, file);
         Validator.validateSolution(input, out);
 
         System.out.println(Validator.score(input, out));

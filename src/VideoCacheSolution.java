@@ -45,7 +45,6 @@ public class VideoCacheSolution implements Problem {
 
         PriorityQueue<VideoCacheTimeSaved> orderedStuff = new PriorityQueue<>();
 
-
         double[][] m = new double[input.V][input.C];
         for (int i = 0; i < input.V; i++) {
             for (int j = 0; j < input.C; j++) {
