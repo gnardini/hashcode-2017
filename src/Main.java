@@ -11,9 +11,9 @@ public class Main {
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new Solution1();
-        runAll(problem);
-//        runOne(problem, files.get(3));
+//        Problem problem = new Solution2();
+        runAll(new Solution3());
+//        runOne(new Solution3(), files.get(2));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -22,6 +22,7 @@ public class Main {
         Validator.validateSolution(input, out);
 //        write(out, file);
         Validator.validateSolution(input, out);
+
         System.out.println(Validator.score(input, out));
     }
 
