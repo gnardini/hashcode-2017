@@ -33,28 +33,28 @@ public class Input {
     }
 
     static class Warehouse {
-	    final int x;
-	    final int y;
+	    final int row;
+	    final int column;
 
 	    final int[] products;
 
-        public Warehouse(int x, int y, int[] products) {
-            this.x = x;
-            this.y = y;
+        public Warehouse(int row, int column, int[] products) {
+            this.row = row;
+            this.column = column;
             this.products = products;
         }
     }
 
     static class Order {
-        final int x;
-        final int y;
+        final int row;
+        final int column;
 
         final int productsCount;
         final Map<Integer, Integer> products; // product type -> count
 
-        public Order(int x, int y, int productsCount, Map<Integer, Integer> products) {
-            this.x = x;
-            this.y = y;
+        public Order(int row, int column, int productsCount, Map<Integer, Integer> products) {
+            this.row = row;
+            this.column = column;
             this.productsCount = productsCount;
             this.products = products;
         }
