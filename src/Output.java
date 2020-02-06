@@ -12,11 +12,11 @@ public class Output {
     }
 
     static class Load implements Command {
-        final int drone;
-        final int warehouse;
-        final int productType;
-        final int productCount;
-        final boolean isLoad;
+        public final int drone;
+        public final int warehouse;
+        public final int productType;
+        public final int productCount;
+        public final boolean isLoad;
 
         public Load(int drone, int warehouse, int productType, int productCount, boolean isLoad) {
             this.drone = drone;

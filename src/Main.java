@@ -1,6 +1,9 @@
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -87,11 +90,14 @@ public class Main {
     }
 
     public static void write(Output out, String file) throws IOException {
-        StringBuilder builder = new StringBuilder();
-
-
-        BufferedWriter writer = new BufferedWriter(new FileWriter("./output/" + file + ".txt"));
-        writer.write(builder.toString());
-        writer.close();
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream("./output/" + file + ".txt"))) {
+            writer.println(out.commands.size());
+            for (int i = 0; i < out.commands.size(); i++) {
+                Output.Command command = out.commands.get(i);
+                StringBuilder sb = new StringBuilder();
+                command.print(sb);
+                writer.println(sb.toString());
+            }
+        }
     }
 }
