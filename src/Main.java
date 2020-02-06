@@ -7,13 +7,13 @@ import java.util.*;
 
 public class Main {
 
-    static List<String> files = Arrays.asList("kittens.in", "me_at_the_zoo.in", "trending_today.in", "videos_worth_spreading.in");
+    static List<String> files = Arrays.asList("busy_day.in", "mother_of_all_warehouses.in", "redundancy.in");
     static StringTokenizer st;
 
     public static void main(String[] args) throws IOException {
 //        Problem problem = new Solution2();
 //        runAll(new VideoCacheSolution());
-        runOne(new VideoCacheSolution(), files.get(3));
+//        runOne(new VideoCacheSolution(), files.get(3));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -49,46 +49,12 @@ public class Main {
         String contents = new String(Files.readAllBytes(Paths.get("./input/" + inputFile)));
         st = new StringTokenizer(contents);
 
-        int V = readInt();
-        int E = readInt();
-        int R = readInt();
-        int C = readInt();
-        int X = readInt();
-        int[] videoSizes = new int[V];
-        for (int i = 0; i < V; i++) {
-            videoSizes[i] = readInt();
-        }
-        Input.Endpoint[] Es = new Input.Endpoint[E];
-        for (int i = 0; i < E; i++) {
-            int Ld = readInt();
-            int k = readInt();
-            Map<Integer, Integer> caches = new HashMap<>();
-            for (int j = 0; j < k; j++) {
-                caches.put(readInt(), readInt());
-            }
-            Es[i] = new Input.Endpoint(i, Ld, k, caches);
-        }
-        Input.Request[] Rs = new Input.Request[R];
-        for (int i = 0; i < R; i++) {
-            Rs[i] = new Input.Request(readInt(), readInt(), readInt());
-        }
-        return new Input(V, E, R, C, X, videoSizes, Es, Rs);
+        return new Input();
     }
 
     public static void write(Output out, String file) throws IOException {
         StringBuilder builder = new StringBuilder();
 
-        builder.append(out.caches.size());
-        builder.append('\n');
-
-        for (Map.Entry<Integer, Set<Integer>> entry : out.caches.entrySet()) {
-            builder.append(entry.getKey());
-            for (Integer videoId : entry.getValue()) {
-                builder.append(' ');
-                builder.append(videoId);
-            }
-            builder.append('\n');
-        }
 
         BufferedWriter writer = new BufferedWriter(new FileWriter("./output/" + file + ".txt"));
         writer.write(builder.toString());
