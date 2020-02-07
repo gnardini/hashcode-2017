@@ -1,7 +1,4 @@
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -13,9 +10,9 @@ public class Main {
     static List<String> files = Arrays.asList("busy_day.in", "mother_of_all_warehouses.in", "redundancy.in");
 
     public static void main(String[] args) throws IOException {
-//        Problem problem = new Solution2();
+        Problem problem = new SolutionN();
 //        runAll(new VideoCacheSolution());
-//        runOne(new VideoCacheSolution(), files.get(3));
+        runOne(problem, "test.in");
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -23,8 +20,6 @@ public class Main {
         Output out = problem.solve(input);
         Validator.validateSolution(input, out);
         write(out, file);
-        Validator.validateSolution(input, out);
-
         System.out.println(Validator.score(input, out));
     }
 
