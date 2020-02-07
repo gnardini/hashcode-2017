@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Problem problem = new SolutionN();
 //        runAll(new VideoCacheSolution());
-        runOne(problem, "test.in");
+        runOne(problem, files.get(0));
     }
 
     private static void runOne(Problem problem, String file) throws IOException {

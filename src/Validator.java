@@ -23,6 +23,10 @@ public class Validator {
                 drone.turn += turnsDistance(drone, warehouse.row, warehouse.column) + 1;
                 drone.x = warehouse.row;
                 drone.y = warehouse.column;
+                warehouse.products[load.productType] -= load.productCount;
+                if (warehouse.products[load.productType] < 0) {
+                    throw new IllegalStateException("No quedan productos en en warehouse");
+                }
                 if (drone.turn > input.T) {
                     throw new IllegalStateException("Un dron se pasó del límite");
                 }
