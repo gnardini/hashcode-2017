@@ -37,7 +37,12 @@ public class Validator {
                 if (order.products.isEmpty()) {
                     continue;
                 }
-                int productCount = order.products.get(deliver.productType);
+                int productCount = 0;
+                try {
+                    productCount = order.products.get(deliver.productType);
+                } catch(Exception e) {
+                    System.out.println("catch");
+                }
                 int remainingProductCount = productCount - deliver.productCount;
                 if (remainingProductCount <= 0) {
                     order.products.remove(deliver.productType);
@@ -47,8 +52,10 @@ public class Validator {
                 drone.turn += turnsDistance(drone, order.row, order.column) + 1;
                 drone.x = order.row;
                 drone.y = order.column;
-                int newScore = (int) Math.ceil(((double) input.T - drone.turn) * 100 / input.T);
-                score += newScore;
+                if (order.products.isEmpty()) {
+                    int newScore = (int) Math.ceil(((double) input.T - drone.turn) * 100 / input.T);
+                    score += newScore;
+                }
             } else if (command instanceof Output.Wait) {
                 Output.Wait wait = ((Output.Wait) command);
                 Drone drone = drones[wait.drone];
