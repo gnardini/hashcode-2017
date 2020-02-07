@@ -10,9 +10,9 @@ public class Main {
     static List<String> files = Arrays.asList("busy_day.in", "mother_of_all_warehouses.in", "redundancy.in");
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new SolutionN();
-//        runAll(new VideoCacheSolution());
-        runOne(problem, "test.in");
+        Problem problem = new Solution1();
+        runAll(problem);
+//        runOne(problem, "redundancy.in");
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -54,7 +54,7 @@ public class Main {
             int row = sc.nextInt();
             int column = sc.nextInt();
             int[] products = na(sc, productTypesCount);
-            warehouses[i] = new Input.Warehouse(row, column, products);
+            warehouses[i] = new Input.Warehouse(i, row, column, products);
         }
         int orderCount = sc.nextInt();
         Input.Order[] orders = new Input.Order[orderCount];
@@ -70,7 +70,7 @@ public class Main {
                 }
                 products.put(type, products.get(type) + 1);
             }
-            orders[i] = new Input.Order(row, column, productsCount, products);
+            orders[i] = new Input.Order(i, row, column, productsCount, products);
         }
 
         return new Input(rows, columns, droneCount, T, maxLoad, productTypesCount, productTypeWeights, warehouseCount, warehouses, orderCount, orders);

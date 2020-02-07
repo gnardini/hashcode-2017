@@ -39,6 +39,17 @@ public class Output {
             out.append(productCount);
             out.append('\n');
         }
+
+        @Override
+        public String toString() {
+            return "Load{" +
+                    "drone=" + drone +
+                    ", warehouse=" + warehouse +
+                    ", productType=" + productType +
+                    ", productCount=" + productCount +
+                    ", isLoad=" + isLoad +
+                    '}';
+        }
     }
 
     static class Deliver implements Command {
@@ -66,6 +77,16 @@ public class Output {
             out.append(' ');
             out.append(productCount);
             out.append('\n');
+        }
+
+        @Override
+        public String toString() {
+            return "Deliver{" +
+                    "drone=" + drone +
+                    ", order=" + order +
+                    ", productType=" + productType +
+                    ", productCount=" + productCount +
+                    '}';
         }
     }
 
