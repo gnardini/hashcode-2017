@@ -10,9 +10,9 @@ public class Main {
     static List<String> files = Arrays.asList("busy_day.in", "mother_of_all_warehouses.in", "redundancy.in");
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new Solution1();
-        runAll(problem);
-//        runOne(problem, "redundancy.in");
+        Problem problem = new Solution2();
+//        runAll(problem);
+        runOne(problem, "redundancy.in");
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
