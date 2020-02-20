@@ -10,9 +10,9 @@ public class Output {
 
     static final class OutputLibrary {
         final int libraryId;
-        final List[] booksToScan;
+        final List<Integer> booksToScan;
 
-        public OutputLibrary(int libraryId, List[] booksToScan) {
+        public OutputLibrary(int libraryId, List<Integer> booksToScan) {
             this.libraryId = libraryId;
             this.booksToScan = booksToScan;
         }
