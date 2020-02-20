@@ -7,12 +7,13 @@ import java.util.*;
 
 public class Main {
 
-    static List<String> files = Arrays.asList();
+    static List<String> files = Arrays.asList("a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt",
+            "e_so_many_books.txt", "f_libraries_of_the_world.txt");
 
     public static void main(String[] args) throws IOException {
         Problem problem = new Solution1();
-//        runAll(problem);
-        runOne(problem, "redundancy.in");
+        runAll(problem);
+//        runOne(problem, "a_example.txt");
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
@@ -40,9 +41,24 @@ public class Main {
 
     public static Input read(String inputFile) throws IOException {
         String contents = new String(Files.readAllBytes(Paths.get("./input/" + inputFile)));
-        Scanner sc = new Scanner(contents);
+        Scanner scanner = new Scanner(contents);
 
-        return new Input();
+        int books = scanner.nextInt();
+        int libraryCount = scanner.nextInt();
+        int days = scanner.nextInt();
+
+        int[] bookScores = na(scanner, books);
+        Input.Library[] libraries = new Input.Library[libraryCount];
+        for (int i = 0; i < libraryCount; i++) {
+            int libraryBooks = scanner.nextInt();
+            libraries[i] = new Input.Library(libraryBooks, scanner.nextInt(), scanner.nextInt(), na(scanner, libraryBooks));
+        }
+
+        return new Input(books, libraryCount, days, bookScores, libraries);
+    }
+
+    public static int ni(Scanner scanner) {
+        return scanner.nextInt();
     }
 
     public static int[] na(Scanner sc, int n) {
