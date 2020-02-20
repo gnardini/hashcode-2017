@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
             "e_so_many_books.txt", "f_libraries_of_the_world.txt");
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new Solution1();
+        Problem problem = new Solution3();
         runAll(problem);
 //        runOne(problem, "a_example.txt");
     }
@@ -70,8 +71,13 @@ public class Main {
     }
 
     public static void write(Output out, String file) throws IOException {
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream("./output/" + file + ".txt"))) {
-
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream("./output/" + file))) {
+            writer.println(out.libraries.size());
+            for (Output.OutputLibrary library : out.libraries) {
+                writer.println(library.libraryId + " " + library.booksToScan.size());
+                String line = String.join(" ", library.booksToScan.stream().map(x -> x + "").collect(Collectors.toList()));
+                writer.println(line);
+            }
         }
     }
 }
