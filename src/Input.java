@@ -15,12 +15,14 @@ public class Input {
     }
 
     final static class Library {
+        final int id;
 	    final int bookCount;
 	    final int signupTime;
 	    final int booksPerDay;
 	    final int[] bookIds;
 
-        public Library(int bookCount, int signupTime, int booksPerDay, int[] bookIds) {
+        public Library(int id, int bookCount, int signupTime, int booksPerDay, int[] bookIds) {
+            this.id = id;
             this.bookCount = bookCount;
             this.signupTime = signupTime;
             this.booksPerDay = booksPerDay;

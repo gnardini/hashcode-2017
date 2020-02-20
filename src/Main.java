@@ -51,7 +51,7 @@ public class Main {
         Input.Library[] libraries = new Input.Library[libraryCount];
         for (int i = 0; i < libraryCount; i++) {
             int libraryBooks = scanner.nextInt();
-            libraries[i] = new Input.Library(libraryBooks, scanner.nextInt(), scanner.nextInt(), na(scanner, libraryBooks));
+            libraries[i] = new Input.Library(i, libraryBooks, scanner.nextInt(), scanner.nextInt(), na(scanner, libraryBooks));
         }
 
         return new Input(books, libraryCount, days, bookScores, libraries);
