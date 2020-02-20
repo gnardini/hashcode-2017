@@ -10,11 +10,16 @@ public class Main {
 
     static List<String> files = Arrays.asList("a_example.txt", "b_read_on.txt", "c_incunabula.txt", "d_tough_choices.txt",
             "e_so_many_books.txt", "f_libraries_of_the_world.txt");
+    static List<String> files2 = Arrays.asList("a_example.txt", "b_read_on.txt", "c_incunabula.txt",
+            "e_so_many_books.txt", "f_libraries_of_the_world.txt");
 
     public static void main(String[] args) throws IOException {
-        Problem problem = new Solution3();
-        runAll(problem);
-//        runOne(problem, "a_example.txt");
+        Problem problem = new SolutionN();
+//        runAll(problem);
+//        runOne(problem, "c_incunabula.txt");
+//        runOne(problem, "d_tough_choices.txt");
+        runOne(problem, "e_so_many_books.txt");
+        runOne(problem, "f_libraries_of_the_world.txt");
     }
 
     private static void runOne(Problem problem, String file) throws IOException {
