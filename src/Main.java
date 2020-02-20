@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Problem problem = new SolutionN();
 //        runAll(problem);
-//        runOne(problem, "c_incunabula.txt");
+        runOne(problem, "c_incunabula.txt");
 //        runOne(problem, "d_tough_choices.txt");
         runOne(problem, "e_so_many_books.txt");
         runOne(problem, "f_libraries_of_the_world.txt");

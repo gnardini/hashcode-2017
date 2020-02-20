@@ -29,7 +29,7 @@ public class SolutionN implements Problem {
 		HashSet<Integer> mem = new HashSet<>();
 		HashSet<Integer> librariesMem = new HashSet<>();
 		int d = 0;
-		int scorePerDay = 1;
+        double scorePerDay = 1;
 		while (input.libraryCount != librariesMem.size() && d < input.totalDays) {
 			LibRes libRes = maxLibrary(input, d, mem, librariesMem, scorePerDay);
 			if (libRes == null) break;
@@ -64,20 +64,20 @@ public class SolutionN implements Problem {
 
 	static class LibRes {
 		Input.Library lib;
-		int score;
+		double score;
 
-		public LibRes(Input.Library lib, int score) {
+		public LibRes(Input.Library lib, double score) {
 			this.lib = lib;
 			this.score = score;
 		}
 	}
 
-	public static LibRes maxLibrary(Input input, int d, HashSet<Integer> mem, HashSet<Integer> librariesMem, int scorePerDay) {
+	public static LibRes maxLibrary(Input input, int d, HashSet<Integer> mem, HashSet<Integer> librariesMem, double scorePerDay) {
 		List<Input.Library> availableLibraries = Arrays.stream(input.libraries).filter(l -> !librariesMem.contains(l.id)).collect(Collectors.toList());
-		int max = 0;
+		double max = 0;
 		Input.Library best = null;
 		for (Input.Library library: availableLibraries) {
-			int score = libraryScore(input, library, d + library.signupTime, mem, scorePerDay);
+			double score = libraryScore(input, library, d + library.signupTime, mem, scorePerDay, availableLibraries.size());
 			if (score > max) {
 				max = score;
 				best = library;
@@ -90,7 +90,7 @@ public class SolutionN implements Problem {
 		return new LibRes(best, max);
 	}
 
-	public static int libraryScore(Input input, Input.Library library, int d, HashSet<Integer> mem, int scorePerDay) {
+	public static double libraryScore(Input input, Input.Library library, int d, HashSet<Integer> mem, double scorePerDay, int libCount) {
 		if (d >= input.totalDays) {
 			return 0;
 		}
@@ -104,10 +104,9 @@ public class SolutionN implements Problem {
 		for (int bookId: bookIds.subList(0, N)) {
 //            sum += input.bookScores[bookId];
             Integer reps = bookReps.get(bookId);
-            int libCount = input.libraries.length;
             sum += input.bookScores[bookId] * ((double) libCount - reps + 1) / libCount;
 		}
-		return (int) (sum / library.signupTime);// - library.signupTime * scorePerDay * scorePerDay;
+		return (sum / (Math.pow(library.signupTime, 2)));// - library.signupTime * scorePerDay * scorePerDay;
 	}
 
 	public static List<Integer> getBooks(Input input, Input.Library library, HashSet<Integer> mem, int d) {
