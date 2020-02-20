@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Main {
 
-    static List<String> files = Arrays.asList("busy_day.in", "mother_of_all_warehouses.in", "redundancy.in");
+    static List<String> files = Arrays.asList();
 
     public static void main(String[] args) throws IOException {
         Problem problem = new Solution1();
